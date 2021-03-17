@@ -17,13 +17,11 @@ module.exports = {
             headers:args.headers||{}
         });
         let data = httpReturn.data;
-        // HTML 解析部分，没有完工
+        // HTML 解析部分，好像没有完工
         if(form[1]=='html'){
             $ = require('cheerio').load(data);
             return $(args.itemSelect).map((index,item)=>{
-                let cofing = {
-                    __index:index
-                };
+                let cofing
                 for (const key in args.dataSelect) {
                     const select = args.dataSelect[key].split('>');
                     let DOM = $(item)
@@ -34,23 +32,23 @@ module.exports = {
                 }
                 if(debug)console.log(cofing);
                 // 从下面开始的东西应该调用 makeCard() 去执行……
-                function _template(t){
-                    return template.render(t,cofing)
-                }
-                let card = {};
-                card.style = args.style||'simple';
-                [
-                    ['image','',args.icon],
-                    ['viewerCount','',''],
-                    ['label','',''],
-                    ['summary','',''],
-                    ['title','','']
-                ].forEach(_key=>{
-                    let _key_1 = args[_key[1]||_key[0]]
-                    card[_key[0]] = (_key_1)?_template(_key_1):_key[2]
-                });
-                // return makeCard({args,cofing,index});
-                return card
+                // function _template(t){
+                //     return template.render(t,cofing)
+                // }
+                // let card = {};
+                // card.style = args.style||'simple';
+                // [
+                //     ['image','',args.icon],
+                //     ['viewerCount','',''],
+                //     ['label','',''],
+                //     ['summary','',''],
+                //     ['title','','']
+                // ].forEach(_key=>{
+                //     let _key_1 = args[_key[1]||_key[0]]
+                //     card[_key[0]] = (_key_1)?_template(_key_1):_key[2]
+                // });
+                return makeCard({args,cofing,index});
+                // return card
             })
         }else if(form[1]=='json'){
             // JSON 解析模式，大多数情况下他们可以按照预期工作
@@ -78,7 +76,7 @@ function makeCard({args,cofing,index}){
         return mod?template.render(mod,cofing):''
     }
     let card = {
-        style:args.style||'list',
+        style:args.style||'simple',
         author:{
             avatar:_template(args.author_avatar),
             name:_template(args.author_name)
