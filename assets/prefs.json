@@ -1,0 +1,17 @@
+{
+  "showWelcome":{
+    "type": "boolean",
+    "default": true,
+    "title": "是否显示欢迎页"
+  },
+  "clickToGo":{
+    "type": "boolean",
+    "default": false,
+    "title": "是否点击一次替换长按"
+  },
+  "url":{
+    "type":"string",
+    "default":"https://gitee.com/conglinyizhi/API/raw/master/Dora/infoData.json",
+    "title":"自定义 API 地址"
+  }
+}

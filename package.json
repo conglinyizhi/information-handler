@@ -1,0 +1,30 @@
+{
+  "name": "dorajs-hotword",
+  "displayName": "信息直通车",
+  "version": "0.1.5",
+  "uuid": "45c0b103-b6e2-4175-810f-a4d4273957ee",
+  "description": "通过公开或半公开的接口获取各种数据的插件",
+  "icon": "/assets/icon.png",
+  "prefs": "assets/prefs.json",
+  "main": "main.js",
+  "license": "UNLICENSED",
+  "author": {
+    "name": "redrain_12345"
+  },
+  "engineStrick": true,
+  "updates": "未来可期（仅仅修改了一下描述文件）",
+  "contributes": {
+    "search": null
+  },
+  "homepage": "https://gitee.com/conglinyizhi/information-handler",
+  "engines": {
+    "dora": ">=1.8.0"
+  },
+  "keywords": [
+    "Dora.js"
+  ],
+  "dependencies": {
+    "art-template": "^4.13.2",
+    "cheerio": "^1.0.0-rc.3"
+  }
+}
