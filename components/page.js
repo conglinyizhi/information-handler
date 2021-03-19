@@ -1,5 +1,6 @@
 let axios = $http
 let template = require('art-template');
+let cheerie = require("cheerio")
 let httpReturn
 let debug = true;
 
@@ -17,38 +18,29 @@ module.exports = {
             headers:args.headers||{}
         });
         let data = httpReturn.data;
+        if(debug){console.log(data)}
         // HTML 解析部分，好像没有完工
         if(form[1]=='html'){
-            $ = require('cheerio').load(data);
-            return $(args.itemSelect).map((index,item)=>{
-                let cofing
-                for (const key in args.dataSelect) {
-                    const select = args.dataSelect[key].split('>');
-                    let DOM = $(item)
-                    select.forEach(_select=>{
-                        DOM = DOM.children(_select)
-                    })
-                    cofing[key] = DOM.text()
+            let $ = cheerie.load(data);
+            $(args.itemRoot).map((index,el)=>{
+                let config={};
+                if(args.string){
+                    for(let stringKey in args.string){
+                        const item = args.string[stringKey];
+                        switch (item.get) {
+                            case 'text':
+                                config[item.stringKey] = $(el).find(item.selector).text()
+                                break;
+                            case 'attr':
+                                config[item.stringKey] = $(el).find(item.selector).attr(item.attr)
+                                break;
+                            default:
+                                // 处理异常还没写
+                                break;
+                        }
+                    }
                 }
-                if(debug)console.log(cofing);
-                // 从下面开始的东西应该调用 makeCard() 去执行……
-                // function _template(t){
-                //     return template.render(t,cofing)
-                // }
-                // let card = {};
-                // card.style = args.style||'simple';
-                // [
-                //     ['image','',args.icon],
-                //     ['viewerCount','',''],
-                //     ['label','',''],
-                //     ['summary','',''],
-                //     ['title','','']
-                // ].forEach(_key=>{
-                //     let _key_1 = args[_key[1]||_key[0]]
-                //     card[_key[0]] = (_key_1)?_template(_key_1):_key[2]
-                // });
-                return makeCard({args,cofing,index});
-                // return card
+                return makeCard({args,config,index})
             })
         }else if(form[1]=='json'){
             // JSON 解析模式，大多数情况下他们可以按照预期工作
@@ -63,18 +55,21 @@ module.exports = {
             // Dora.js 标题设置为空，这样可以让顶栏好看一点，然而实际 1.9.0 并没有实际作用……
             // this.title=''
 
-            return data.map((cofing,index)=>{
-                return makeCard({args,cofing,index})
+            return data.map((config,index)=>{
+                return makeCard({args,config,index})
             });
+        }else{
+            return [{title:"什么玩意？是用了新的 API 吗？",summary:"Error:mabey is new API?"}]
         }
     }
 }
 
 
-function makeCard({args,cofing,index}){
+function makeCard({args,config,index}){
     function _template(mod){
-        return mod?template.render(mod,cofing):''
+        return mod?template.render(mod,config):''
     }
+    if(debug)console.log("makeCard() Start")
     let card = {
         style:args.style||'simple',
         author:{
@@ -83,7 +78,7 @@ function makeCard({args,cofing,index}){
         }
     };
 
-    cofing.__index = index;
+    config.__index = index;
 
     [
         ['image',args.icon],
@@ -107,5 +102,6 @@ function makeCard({args,cofing,index}){
     else if(args.url) card[fun]=()=>{
         $router.to($route('webview',{url:_template(args.url)}))
     }
+    // if(debug){console.log(card)}
     return card
 }
