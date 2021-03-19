@@ -9,20 +9,21 @@ module.exports = {
     async fetch({ args }) {
         // 隐藏启动页
         $prefs.set('showWelcome',false)
-        if(debug) console.log('Loading.....')
+        if(debug){
+            console.clear()
+            console.log('Loading.....')
+        }
         let form = args.form.split(";");
-        console.log(args.header)
         // 通过 axios 访问网络并且获取数据
         // 因为在无网络的情况下基本无法使用整个插件，所以考虑不做异常捕捉
         httpReturn = await axios[form[0]||'get'](form[2],{
             headers:args.headers||{}
         });
         let data = httpReturn.data;
-        if(debug){console.log(data)}
         // HTML 解析部分，好像没有完工
         if(form[1]=='html'){
             let $ = cheerie.load(data);
-            $(args.itemRoot).map((index,el)=>{
+            return $(args.itemRoot).map((index,el)=>{
                 let config={};
                 if(args.string){
                     for(let stringKey in args.string){
