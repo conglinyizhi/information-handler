@@ -27,23 +27,13 @@ module.exports = {
                 if (debug) console.log("forEach - %d", index)
                 let config = {};
                 function getText(key, selector, command, attr = undefined) {
-                    if (debug) console.log(key, el, selector, command, attr)
+                    if (debug) console.log(key, selector, command, attr)
                     config[key] = $(el).find(selector)[command](attr)
                 }
                 if (args.string) {
                     for (let stringKey in args.string) {
                         const item = args.string[stringKey];
-                        switch (item.get) {
-                            case 'text':
-                                getText(stringKey, item.selector, 'text')
-                                break;
-                            case 'attr':
-                                getText(stringKey, item.selector, 'attr', item.attr)
-                                break;
-                            default:
-                                // 处理异常还没写
-                                break;
-                        }
+                        if(item.get == 'text'||item.get == 'attr')getText(stringKey, item.selector, item.get,item.attr)
                     }
                 }
                 let HTMLCard = makeCard({ args, config, index })
