@@ -26,7 +26,6 @@
   "dependencies": {
     "art-template": "^4.13.2",
     "axios": "^0.21.1",
-    "xmldom": "^0.5.0",
-    "xpath": "^0.0.32"
+    "cheerio": "^1.0.0-rc.5"
   }
 }
