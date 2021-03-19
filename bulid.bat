@@ -1,3 +1,5 @@
+del "package.tar"
+del "package.dora"
 7z a package.tar "package/assets/*" 
 7z a package.tar "package/components/*" 
 7z a package.tar "package/main.js" 
