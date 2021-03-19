@@ -22,10 +22,10 @@ module.exports = {
         // HTML 解析部分，好像没有完工
         if (form[1] == 'html') {
             // 构建 html 解析器
-            if(debug){
-                // 无法正常执行，为了正常运行，对用户进行警告并且只有在 debug 下才可以执行
                 let $ = cheerie.load(data);
-                let View = $(args.itemRoot).map((index, el) => {
+                let View = $(args.itemRoot)
+                let cardlist = new Array(View.length)
+                View.each((index, el) => {
                     if (debug) console.log("forEach - %d", index)
                     let config = {};
                     function getText(key, selector, command, attr = undefined) {
@@ -38,15 +38,11 @@ module.exports = {
                             if(item.get == 'text'||item.get == 'attr')getText(stringKey, item.selector, item.get,item.attr)
                         }
                     }
-                    let HTMLCard = makeCard({ args, config, index })
-                    // console.log(HTMLCard)
-                    return HTMLCard
+                    cardlist[index] = makeCard({ args, config, index })
                 })
                 console.log("============================")
-                console.log(View)
-                return View
-            }
-            return [{title:"html 解析引擎维护中……",summary:"因为技术原因，我们目前无法开放 html 解析功能的使用，抱歉"}]
+                console.log(cardlist)
+                return cardlist
         } else if (form[1] == 'json') {
             // JSON 解析模式，大多数情况下他们可以按照预期工作
             args.itemRoot.split('.').forEach(key => {
