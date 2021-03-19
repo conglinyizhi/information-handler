@@ -13,5 +13,10 @@
     "type":"string",
     "default":"https://gitee.com/conglinyizhi/API/raw/master/Dora/infoData.json",
     "title":"自定义 API 地址"
+  },
+  "closeMessage":{
+    "type":"boolean",
+    "default":false,
+    "title":"是否隐藏源警告"
   }
 }

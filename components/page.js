@@ -13,6 +13,16 @@ module.exports = {
             console.log('Loading.....')
         }
         let form = args.form.split(";");
+        
+        if(!$prefs.get('closeMessage') && args.message && !args.gotodebug){
+            return [{title:args.message,summary:"确定继续使用，请点击我\n若不希望再次看到这种提示，请长按，我们会永久隐藏他（除非您从配置项中再次启用）",onClick(){
+                args.gotodebug = true;
+                $router.to($route('page',args))
+            },onLongClick($item){
+                $prefs.set('closeMessage',true)
+                $item.onClick()
+            }}]
+        }
         // 通过 axios 访问网络并且获取数据
         // 因为在无网络的情况下基本无法使用整个插件，所以考虑不做异常捕捉
         httpReturn = await axios[form[0] || 'get'](form[2], {
