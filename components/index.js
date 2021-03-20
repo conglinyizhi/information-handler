@@ -8,7 +8,6 @@ module.exports = {
     if($prefs.get('showWelcome')){
       View = [{ title: '首页 - index', route: $route('indexView/index') }]
     }
-
     return View.concat(hotwordIndex.map(cofing => {
       return {
         title: cofing.showName,
