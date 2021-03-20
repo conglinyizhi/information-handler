@@ -2,16 +2,13 @@ let axios = $http
 let template = require('art-template');
 let cheerie = require("cheerio")
 let httpReturn
-let debug = false;
+let debug = true;
 
 module.exports = {
     type: 'list',
     async fetch({ args }) {
         // 隐藏启动页
         $prefs.set('showWelcome', false)
-        if (debug) {
-            console.log('Loading.....')
-        }
         let form = args.form.split(";");
         function GoinDebug(){
             args.gotodebug = true;
@@ -19,13 +16,14 @@ module.exports = {
         }
         if(!$prefs.get('closeMessage') && args.message && !args.gotodebug){
             return [{title:args.message,summary:"确定继续使用，请点击我\n\n若不希望再次看到这种提示，请长按，我们会永久隐藏他（除非您从配置项中再次启用）",
-            onClick:GoinDebug,onLongClick($item){
+            onClick:GoinDebug,onLongClick(){
                 $prefs.set('closeMessage',true)
                 GoinDebug()
             }}]
         }
         // 通过 axios 访问网络并且获取数据
         // 因为在无网络的情况下基本无法使用整个插件，所以考虑不做异常捕捉
+        if(debug)console.log(form)
         httpReturn = await axios[form[0] || 'get'](form[2], {
             headers: args.headers || {}
         });
@@ -35,12 +33,14 @@ module.exports = {
             // 构建 html 解析器
                 let $ = cheerie.load(data);
                 let View = $(args.itemRoot)
+                if (debug) {
+                    console.log(args)
+                    console.log(`View.length:${View.length}`)
+                }
                 let cardlist = new Array(View.length)
                 View.each((index, el) => {
-                    if (debug) console.log("forEach - %d", index)
                     let config = {};
                     function getText(key, selector, command, attr = undefined) {
-                        if (debug) console.log(key, selector, command, attr)
                         config[key] = $(el).find(selector)[command](attr)
                     }
                     if (args.string) {
@@ -60,10 +60,10 @@ module.exports = {
                 data = data[key]
             })
 
-            if (debug) {
-                console.log(`Debug:输出数组成员 > ${data.length}`)
-                console.log(data);
-            }
+            // if (debug) {
+            //     console.log(`Debug:输出数组成员 > ${data.length}`)
+            //     console.log(data);
+            // }
             // Dora.js 标题设置为空，这样可以让顶栏好看一点，然而实际 1.9.0 并没有实际作用……
             // this.title=''
 
@@ -81,7 +81,6 @@ function makeCard({ args, config, index }) {
     function _template(mod) {
         return mod ? template.render(mod, config) : ''
     }
-    if (debug) console.log("makeCard() Start")
     let card = {
         style: args.style || 'simple',
         author: {
@@ -113,6 +112,5 @@ function makeCard({ args, config, index }) {
     else if (args.url) card[fun] = () => {
         $router.to($route('webview', { url: _template(args.url) }))
     }
-    // if(debug){console.log(card)}
     return card
 }

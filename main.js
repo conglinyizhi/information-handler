@@ -23,3 +23,12 @@ global.console.log = function (msg) {
   }
   oldConsoleLog.apply(oldConsoleLog, arguments);
 };
+
+// 深度拷贝
+global.clone=(o)=>{
+    var s = {};
+    for (var k in o)
+        s[k] = typeof o[k] === 'object' ? clone(o[k]) : o[k];
+    return s;
+}
+
