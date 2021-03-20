@@ -2,7 +2,7 @@ let axios = $http
 let template = require('art-template');
 let cheerie = require("cheerio")
 let httpReturn
-let debug = true;
+let debug = false;
 
 module.exports = {
     type: 'list',
