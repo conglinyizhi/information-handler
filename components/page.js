@@ -29,6 +29,7 @@ module.exports = {
     }
 }
 
+// 主要绘制列表函数
 function drawMainList({args,data,form}){
     if (form[1] == 'html') {
         // 构建 html 解析器
@@ -67,8 +68,10 @@ function drawMainList({args,data,form}){
     }
 }
 
+// 卡片模板代码渲染函数
 function makeCard({ args, config, index }) {
     function _template(mod) {
+        // 如果有模板代码就执行渲染指令
         return mod ? template.render(mod, config) : ''
     }
     let card = {
@@ -81,6 +84,7 @@ function makeCard({ args, config, index }) {
 
     config.__index = index;
 
+    // 批量渲染卡片的数据
     ['image','viewerCount','label','summary','title'].forEach(key => {
         card[key] = _template(args[key])
     })
@@ -99,6 +103,7 @@ function makeCard({ args, config, index }) {
     return card
 }
 
+// 用来执行用户点击警告执行的事件
 function GoinDebug({args}){
     args.gotodebug = true;
     $router.to($route('page',args))
