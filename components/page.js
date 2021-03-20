@@ -12,7 +12,7 @@ module.exports = {
         let form = args.form.split(";");
         function GoinDebug(){
             args.gotodebug = true;
-            $router.to($route('page',args))
+            this.refresh()
         }
         if(!$prefs.get('closeMessage') && args.message && !args.gotodebug){
             return [{title:args.message,summary:"确定继续使用，请点击我\n\n若不希望再次看到这种提示，请长按，我们会永久隐藏他（除非您从配置项中再次启用）",
