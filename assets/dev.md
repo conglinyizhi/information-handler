@@ -4,7 +4,7 @@
 
 接口更新时间：2021年3月19日
 
-文档更新时间：2021年3月19日
+文档更新时间：2021年3月26日
 
 **注意！**
 
@@ -16,24 +16,24 @@
 
 ````JSON
 {
-        "message":"更新了 API，可能无法正常使用",
-		"showName":"今日热点",
-		"form":"get;html;https://tophub.today/n/WnBe01o371",
-		"itemRoot":".Zd-p-Sc > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > table:nth-child(1) > tbody:nth-child(1) tr",
-		"title":"{{__index+1}} - {{title}}",
-        "url":"https://tophub.today{{link}}",
-        "string":{
-            "title":{
-                "selector":"td.al a[href]",
-                "get":"text"
-            },
-            "link":{
-                "selector":"td.al a[href]",
-                "get":"attr",
-                "attr":"href"
-            }
-        }
+	"message":"更新了 API，可能无法正常使用",
+	"showName":"今日热点",
+	"form":"get;html;https://tophub.today/n/WnBe01o371",
+	"itemRoot":".Zd-p-Sc > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > table:nth-child(1) > tbody:nth-child(1) tr",
+	"title":"{{__index+1}} - {{title}}",
+	"url":"https://tophub.today{{link}}",
+	"string":{
+		"title":{
+			"selector":"td.al a[href]",
+			"get":"text"
+		},
+		"link":{
+			"selector":"td.al a[href]",
+			"get":"attr",
+			"attr":"href"
+		}
 	}
+}
 
 ````
 
