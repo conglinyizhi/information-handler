@@ -14,12 +14,12 @@
 
 目前最好的跨平台 ````Dora.js```` 插件支持框架，目前已经可以在 ````Windows/Linux/IOS/Android```` 上运行，如果您有在 ````Android```` 平台外使用 ````Dora.js```` 插件的需求，````JSFun```` 是您的第一选择~
 
-[官方网站 搜集中……]()
+[官方网站 https://jsfun.vercel.app/](https://jsfun.vercel.app/)
 
-[官方文档 搜集中……]()
+[官方文档 https://jsfun.vercel.app/](https://jsfun.vercel.app/)
 
 ## 【其他】other
 
 即使加入了 ````Dora.js```` 交流群，我们不确定我们发现了所有框架以及及时补全了他们的特点，如果您发现了新的框架，欢迎来到 ````Dora.js```` 交流群中讨论
 
-如果您发现了搜集中的连接，欢迎提交 Pull requests
+如果您发现了搜集中的连接或者找到了文档中的错误，欢迎提交 Pull requests
