@@ -13,7 +13,9 @@ module.exports = {
         if(!$prefs.get('closeMessage') && args.message && !args.gotodebug){
             return [{title:args.message,
                 summary:"继续使用请点击我，我们将尝试在新窗口展示数据\n\n若不希望再次看到这种提示，请长按，我们会永久隐藏他（除非您从配置项中再次启用）",
-                onClick(){GoinDebug()},onLongClick(){
+                onClick(){
+                    GoinDebug()
+                },onLongClick(){
                     $prefs.set('closeMessage',true)
                     GoinDebug()
                 }
@@ -25,7 +27,11 @@ module.exports = {
         httpReturn = await axios[form[0] || 'get'](form[2], {
             headers: args.headers || {}
         });
-        return [{title:"加载完成",style:"category"}].concat(drawMainList({args,data:httpReturn.data,form}));
+        let View = drawMainList({args,data:httpReturn.data,form})
+        if(args.reverse){
+            View.reverse()
+        }
+        return [{title:"加载完成",style:"category"}].concat(View);
     }
 }
 
@@ -85,7 +91,7 @@ function makeCard({ args, config, index }) {
     config.__index = index;
 
     // 批量渲染卡片的数据
-    ['image','viewerCount','label','summary','title'].forEach(key => {
+    ['image','viewerCount','label','summary','title','thumb'].forEach(key => {
         card[key] = _template(args[key])
     })
 

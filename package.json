@@ -1,7 +1,7 @@
 {
   "name": "dorajs-hotword",
   "displayName": "信息直通车",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "uuid": "45c0b103-b6e2-4175-810f-a4d4273957ee",
   "description": "通过公开或半公开的接口获取各种数据的插件",
   "icon": "/assets/icon.png",
@@ -12,7 +12,7 @@
     "name": "redrain_12345"
   },
   "engineStrick": true,
-  "updates": "未来可期（仅仅修改了一下描述文件）",
+  "updates": "未来仍然可期（还是仅修改了一下描述文件）",
   "contributes": {
     "search": null
   },
