@@ -1,7 +1,7 @@
 module.exports = {
     type: 'list',
     async fetch({ args }) {
-        let View = [drawList("源配置模块",[
+        let View = [drawListBlock("源配置模块",[
             {title:"本地源",onClick(){
                 pushStorage("")
             }},
@@ -21,7 +21,7 @@ module.exports = {
     }
 }
 
-function drawList(title,actions){
+function drawListBlock(title,actions){
     return {title,style:"chips",actions}
 }
 
