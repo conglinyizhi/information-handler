@@ -14,6 +14,7 @@ module.exports = {
                 route:$route('page',card)
             })
         }
+        this.tabMode = (View.length<5)?"fixed":"scrollable"
         return View
     }
 }
