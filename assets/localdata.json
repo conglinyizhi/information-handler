@@ -1,0 +1,139 @@
+{
+    "title": "本地源",
+    "summary": "在本地仍然可以起航",
+    "data": [
+        {
+            "showName": "微博热搜",
+            "itemRoot": "data.cards.0.card_group",
+            "title": "[{{__index}}]{{desc}}",
+            "summary": "热度：{{desc_extr||\"置顶\"}}",
+            "image": "{{icon||pic}}",
+            "icon": "{{$icon('info','#66ccff')}}",
+            "url": "{{scheme}}",
+            "form": "get;json;https://m.weibo.cn/api/container/getIndex?containerid=106003type%3D25%26t%3D3%26disable_hot%3D1%26filter_type%3Drealtimehot"
+        },
+        {
+            "showName": "[整合]知乎热榜",
+            "form": "get;json",
+            "model": {
+                "itemRoot": "data",
+                "title": "[{{__index+1}}]{{target.title}}",
+                "summary": "{{target.excerpt}}",
+                "url": "{{target.url.split(\"api.zhihu.com/questions\").join(\"www.zhihu.com/question\")}}"
+            },
+            "listIconform": "https://www.zhihu.com",
+            "menulist": {
+                "全站": "https://www.zhihu.com/api/v3/feed/topstory/hot-lists/total?limit=50&desktop=true",
+                "数码": "https://www.zhihu.com/api/v3/feed/topstory/hot-lists/digital?limit=50&desktop=true",
+                "时事": "https://www.zhihu.com/api/v3/feed/topstory/hot-lists/depth?limit=50&desktop=true",
+                "体育": "https://www.zhihu.com/api/v3/feed/topstory/hot-lists/sport?limit=50&desktop=true"
+            }
+        },
+        {
+            "showName": "[整合]BiliBili UP",
+            "listIconform": "https://www.bilibili.com",
+            "form": "get;json",
+            "model": {
+                "itemRoot": "data.list.vlist",
+                "title": "{{title}}",
+                "label": "av{{aid}}",
+                "image": "https://{{pic}}",
+                "viewerCount": "{{play}}",
+                "style": "live",
+                "author_avatar": "",
+                "author_name": "持续时间：{{length}}",
+                "schame": "bilibili://video/{{aid}}"
+            },
+            "menulist": {
+                "旭旭宝宝": "https://api.bilibili.com/x/space/arc/search?mid=315551393&ps=30&tid=0&pn=1&keyword=&order=pubdate&jsonp=jsonp",
+                "抽风": "https://api.bilibili.com/x/space/arc/search?mid=2728123&ps=30&tid=0&pn=1&keyword=&order=pubdate&jsonp=jsonp",
+                "独立应用开发者": "https://api.bilibili.com/x/space/arc/search?mid=5496727&ps=30&tid=0&pn=1&keyword=&order=pubdate&jsonp=jsonp",
+                "原神": "https://api.bilibili.com/x/space/arc/search?mid=401742377&ps=30&tid=0&pn=1&keyword=&order=pubdate&jsonp=jsonp"
+            }
+        },
+        {
+            "showName": "[新接口]今日热榜 - 百度",
+            "form": "get;html;https://tophub.today/n/Jb0vmloB1G",
+            "itemRoot": ".Zd-p-Sc > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > table:nth-child(1) > tbody:nth-child(1) tr",
+            "title": "{{__index+1}} - {{title}}",
+            "url": "https://tophub.today{{link}}",
+            "string": {
+                "title": {
+                    "selector": "td.al a[href]",
+                    "get": "text"
+                },
+                "link": {
+                    "selector": "td.al a[href]",
+                    "get": "attr",
+                    "attr": "href"
+                }
+            }
+        },
+        {
+            "message": "这是一个没有发布的版本的接口测试",
+            "showName": "[整合]今日热榜",
+            "listIconform": "https://tophub.today",
+            "form": "get;html",
+            "model": {
+                "itemRoot": ".Zd-p-Sc > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > table:nth-child(1) > tbody:nth-child(1) tr",
+                "title": "{{__index+1}} - {{title}}",
+                "url": "https://tophub.today{{link}}",
+                "string": {
+                    "title": {
+                        "selector": "td.al a[href]",
+                        "get": "text"
+                    },
+                    "link": {
+                        "selector": "td.al a[href]",
+                        "get": "attr",
+                        "attr": "href"
+                    }
+                }
+            },
+            "menulist": {
+                "微信热榜": "https://tophub.today/n/WnBe01o371",
+                "百度热榜": "https://tophub.today/n/Jb0vmloB1G",
+                "知乎日报": "https://tophub.today/n/KMZd7VOvrO",
+                "V2EX": "https://tophub.today/n/wWmoORe4EO"
+            }
+        },
+        {
+            "message": "这个源可以稳定导致 Dora.js 框架（1.9.0）崩溃",
+            "showName": "[崩溃]BiliBili 排行",
+            "listIconform": "https://www.bilibili.com",
+            "model": {
+                "itemRoot": "data.list",
+                "title": "名次：{{__index + 1}}播放数：{{play}}",
+                "label": "{{author}}",
+                "image": "{{pic}}",
+                "viewerCount": "{{play}}",
+                "style": "live",
+                "author_avatar": "",
+                "author_name": "{{title}}",
+                "icon": "{$icon('info','#66ccff')}",
+                "schame": "bilibili://video/{{aid}}"
+            },
+            "form": "get;json",
+            "menulist": {
+                "原创": "https://api.bilibili.com/x/web-interface/ranking/v2?rid=0&type=origin",
+                "全站": "https://api.bilibili.com/x/web-interface/ranking/v2?rid=0&type=all",
+                "鬼畜": "https://api.bilibili.com/x/web-interface/ranking/v2?rid=119&type=all",
+                "知识": "https://api.bilibili.com/x/web-interface/ranking/v2?rid=36&type=all"
+            }
+        },
+        {
+            "message": "这个源可以稳定导致 Dora.js 框架（1.9.0）崩溃",
+            "showName": "[崩溃] B 站番剧 - 罗小黑",
+            "listIconform": "https://www.bilibili.com",
+            "form": "get;json;https://api.bilibili.com/pgc/web/season/section?season_id=1733",
+            "itemRoot": "result.main_section.episodes",
+            "author_name": "{{title}} - {{long_title}}",
+            "label": "{{aid}}",
+            "thumb": "{{cover}}",
+            "image": "{{cover}}",
+            "style": "gallery",
+            "schame": "bilibili://video/{{aid}}",
+            "reverse": true
+        }
+    ]
+}
