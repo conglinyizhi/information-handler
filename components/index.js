@@ -7,7 +7,6 @@ module.exports = {
     const hotwordIndex = (!$url) ? JSON.parse(fs.readFileSync(`assets/localdata.json`, 'utf-8')) : (await $http.get($url)).data
     let View = [];
     if ($prefs.get('showWelcome')) View.push({ title: '首页 - index', route: $route('indexView/index') })
-    console.log(hotwordIndex.data)
     return View.concat(hotwordIndex.data.map(cofing => {
       return {
         title: cofing.showName,
