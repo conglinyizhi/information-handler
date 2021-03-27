@@ -1,7 +1,7 @@
 {
   "name": "dorajs-hotword",
   "displayName": "信息直通车",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "uuid": "45c0b103-b6e2-4175-810f-a4d4273957ee",
   "description": "通过公开或半公开的接口获取各种数据的插件",
   "icon": "/assets/icon.png",
@@ -16,7 +16,7 @@
   "contributes": {
     "search": null
   },
-  "homepage": "https://gitee.com/conglinyizhi/information-handler",
+  "homepage": "https://github.com/conglinyizhi/information-handler",
   "engines": {
     "dora": ">=1.8.0"
   },
