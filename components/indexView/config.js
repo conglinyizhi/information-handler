@@ -26,5 +26,6 @@ function drawList(title,actions){
 }
 
 function pushStorage(data){
+    $ui.toast("配置完成~")
     $prefs.set("url",data)
 }
