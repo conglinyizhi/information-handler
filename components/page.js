@@ -14,10 +14,10 @@ module.exports = {
             return [{title:args.message,
                 summary:"继续使用请点击我，我们将尝试在新窗口展示数据\n\n若不希望再次看到这种提示，请长按，我们会永久隐藏他（除非您从配置项中再次启用）",
                 onClick(){
-                    GoinDebug()
+                    GoinDebug({args})
                 },onLongClick(){
                     $prefs.set('closeMessage',true)
-                    GoinDebug()
+                    GoinDebug({args})
                 }
             }]
         }
