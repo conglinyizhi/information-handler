@@ -1,4 +1,4 @@
-let axios = $http
+let axios = $axios||$http||require('axios')  // 高版本兼容，不过这两玩意都一样
 let template = require('art-template');
 let cheerie = require("cheerio")
 let httpReturn
@@ -21,6 +21,8 @@ module.exports = {
                 }
             }]
         }
+        // 隐藏标题
+        this.title=''
         // 通过 axios 访问网络并且获取数据
         // 因为在无网络的情况下基本无法使用整个插件，所以考虑不做异常捕捉
         if(debug)console.log(form)
@@ -28,6 +30,7 @@ module.exports = {
             headers: args.headers || {}
         });
         let View = drawMainList({args,data:httpReturn.data,form})
+        // 颠倒数组
         if(args.reverse){
             View.reverse()
         }
@@ -65,7 +68,6 @@ function drawMainList({args,data,form}){
         args.itemRoot.split('.').forEach(key => {
             data = data[key]
         })
-        this.title=''
         return data.map((config, index) => {
             return makeCard({ args, config, index })
         });
