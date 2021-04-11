@@ -78,6 +78,7 @@ function drawMainList({args,data,form}){
 
 // 卡片模板代码渲染函数
 function makeCard({ args, config, index }) {
+    console.log("function makeCard()")
     function _template(mod) {
         // 如果有模板代码就执行渲染指令
         return mod ? template.render(mod, config) : ''
@@ -101,6 +102,12 @@ function makeCard({ args, config, index }) {
     let fun = $prefs.get('clickToGo') ? 'onClick' : 'onLongClick'
     if (args.schame) card[fun] = () => {
         $router.to($route(_template(args.schame)))
+    }
+    if (args.audio) card[fun] = () => {
+        $router.to($route('audio',{
+            url:_template(args.audio),
+            make:args.audiomake
+        }))
     }
     else if (args.video) card[fun] = () => {
         $router.to($route('video', { url: _template(args.video) }))
