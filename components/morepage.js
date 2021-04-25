@@ -9,7 +9,6 @@ module.exports = {
             // 深度复制代码在 /main.js
             card.form = `${args.form};${args.menulist[key]}`;
             card.message = args.message
-            console.log(card)
             View.push({
                 title:key,
                 route:$route('page',card)

@@ -37,7 +37,7 @@
                 "itemRoot": "data.list.vlist",
                 "title": "{{title}}",
                 "label": "av{{aid}}",
-                "image": "https://{{pic}}",
+                "image": "{{pic}}",
                 "viewerCount": "{{play}}",
                 "style": "live",
                 "author_avatar": "",

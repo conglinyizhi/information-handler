@@ -9,7 +9,6 @@ module.exports = {
     async fetch({ args }) {
         // 隐藏启动页
         $prefs.set('showWelcome', false)
-        let form = args.form.split(";");
         if(!$prefs.get('closeMessage') && args.message && !args.gotodebug){
             return [{title:args.message,
                 summary:"继续使用请点击我，我们将尝试在新窗口展示数据\n\n若不希望再次看到这种提示，请长按，我们会永久隐藏他（除非您从配置项中再次启用）",
@@ -23,18 +22,30 @@ module.exports = {
         }
         // 隐藏标题
         this.title=''
+        return [{title:"加载完成",style:"category"}].concat(await this._drawCardList({args},{
+            mode:"page"
+        }));
+    },
+    drawMainList,
+    makeCard,
+    async _drawCardList({args},drawObject = {mode:'index'}){
+        if(typeof args.message != 'undefined' && drawObject.mode != 'page') return [{title:`源 ${args.showName} 似乎不稳定，不在首页展示`,style:"category"}]
+        let form = args.form.split(";");
         // 通过 axios 访问网络并且获取数据
         // 因为在无网络的情况下基本无法使用整个插件，所以考虑不做异常捕捉
         if(debug)console.log(form)
         httpReturn = await axios[form[0] || 'get'](form[2], {
             headers: args.headers || {}
         });
-        let View = drawMainList({args,data:httpReturn.data,form})
+        let View = this.drawMainList({args,data:httpReturn.data,form})
         // 颠倒数组
         if(args.reverse){
             View.reverse()
         }
-        return [{title:"加载完成",style:"category"}].concat(View);
+        if(View.length == 0){
+            View = [{title:"抱歉，我们没有发现有效的数据",summary:"可能是数据来源问题，如果是某 bilibili UP 主，可能是因为没有稿件"}]
+        }
+        return View
     }
 }
 
@@ -78,7 +89,6 @@ function drawMainList({args,data,form}){
 
 // 卡片模板代码渲染函数
 function makeCard({ args, config, index }) {
-    console.log("function makeCard()")
     function _template(mod) {
         // 如果有模板代码就执行渲染指令
         return mod ? template.render(mod, config) : ''

@@ -1,7 +1,7 @@
 {
   "name": "dorajs-hotword",
   "displayName": "信息直通车",
-  "version": "0.1.8",
+  "version": "0.2.0",
   "uuid": "45c0b103-b6e2-4175-810f-a4d4273957ee",
   "description": "通过公开或半公开的接口获取各种数据的插件",
   "icon": "/assets/icon.png",
@@ -12,7 +12,7 @@
     "name": "redrain_12345"
   },
   "engineStrick": true,
-  "updates": "莫名奇妙懒得写更新日志了，尝试了音频功能",
+  "updates": "主界面更新 - 希望在全面屏时代可以正常的使用这个插件",
   "contributes": {
     "search": null
   },

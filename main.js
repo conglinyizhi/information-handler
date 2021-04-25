@@ -8,6 +8,8 @@ console.info('Congratulation, your addon runs successfully!')
 // "art-template": "^4.13.2",
 // [转发自用户 qin hector]
 const oldConsoleLog = console.log;
+global.console._log = oldConsoleLog;
+
 global.console.log = function (msg) {
   // 忽略 pnp 日志
   if (msg === 'dependencyNameMatch') {
@@ -23,6 +25,8 @@ global.console.log = function (msg) {
   }
   oldConsoleLog.apply(oldConsoleLog, arguments);
 };
+
+
 
 // 深度拷贝
 global.clone=(o)=>{
